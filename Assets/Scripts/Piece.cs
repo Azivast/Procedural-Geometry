@@ -7,6 +7,9 @@ public class Piece : MonoBehaviour {
         var tile = GetComponent<GridTile>();
         if (tile.GetProperty(GridTileProperty.Solid)) {
             Gizmos.color = Color.red;
+        } else if (tile.GetProperty(GridTileProperty.Water))
+        {
+            Gizmos.color = Color.blue;
         } else {
             Gizmos.color = Color.green;
         }
