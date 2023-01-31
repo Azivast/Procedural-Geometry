@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa10f32490464cf1a7093f94d64b1c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Size: {x: 5, y: 5}
+  Size: {x: 3, y: 3}
   TilePrefab: {fileID: 6110874428748392364, guid: 6cc1263ed6fbad047be3f4b6865f46c5, type: 3}
   PropertyNames:
   - Solid
@@ -259,6 +259,14 @@ MonoBehaviour:
   _cellData:
   - Properties: 0
     JsonData: 
+  - Properties: 2
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 2
+    JsonData: 
   - Properties: 0
     JsonData: 
   - Properties: 0
@@ -279,21 +287,19 @@ MonoBehaviour:
     JsonData: 
   - Properties: 0
     JsonData: 
-  - Properties: 2
-    JsonData: 
-  - Properties: 2
-    JsonData: 
-  - Properties: 0
-    JsonData: 
-  - Properties: 0
-    JsonData: 
   - Properties: 0
     JsonData: 
   - Properties: 0
     JsonData: 
   - Properties: 2
     JsonData: 
-  - Properties: 2
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
     JsonData: 
   - Properties: 0
     JsonData: 
@@ -303,7 +309,91 @@ MonoBehaviour:
     JsonData: 
   - Properties: 0
     JsonData: 
-  - Properties: 2
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
     JsonData: 
   - Properties: 0
     JsonData: 
