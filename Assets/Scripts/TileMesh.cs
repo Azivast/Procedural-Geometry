@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Grid;
 using UnityEngine;
+using UnityEngine.WSA;
 
 public abstract class TileMesh
 {
@@ -18,18 +19,20 @@ public abstract class TileMesh
         mesh = new Mesh();
         builder = new MeshBuilder();
     }
-    public virtual void GenerateMesh()
+    public void GenerateMesh()
     {
-        // TODO: Check against neighbours
         builder.Build(mesh);
     }
 
-    private int i = 0;
-    public void UpdateMesh()
+    protected void ClearMesh()
     {
-        if (i > 0) return;
+        mesh.Clear();
+        mesh.MarkModified();
+    }
+
+    public virtual void UpdateMesh(GridTileProperty[,] neighbours, GridTile tile)
+    {
         GenerateMesh();
-        i++;
     }
 
     protected virtual void GenerateSidePiece(Vector3 translation, Quaternion rotation, Vector3 scale) {}

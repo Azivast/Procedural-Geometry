@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Events
 {
-    public class EventManager : MonoBehaviour
+    public static class EventManager
     {
-        public delegate void TileUpdatedEvent(int tileChanged, int[] neighbours);
+        public delegate void TileUpdatedEvent(Vector2 tileChanged, int[] neighbours);
         
-        public event TileUpdatedEvent TileUpdated;
+        public static event TileUpdatedEvent TileUpdated;
         
-        public void PublicTileUpdated(int tileChanged, int[] neighbours)
+        public static void PublicTileUpdated(Vector2 tileChanged, int[] neighbours)
             => TileUpdated?.Invoke(tileChanged, neighbours);
     }
 }

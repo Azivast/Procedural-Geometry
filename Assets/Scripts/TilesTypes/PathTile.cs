@@ -10,17 +10,13 @@ public class PathTile : TileMesh
         mesh.name = "Water";
         builder.TextureMatrix = Matrix4x4.Translate(new Vector3(0.0f, 0.0f, 0.0f)) *
                                 Matrix4x4.Scale(new Vector3(0.5f, 0.5f, 1.0f));
-    }
-    
-    public override void GenerateMesh()
-    {
         GenerateCornerPiece(Vector3.zero, Quaternion.identity, Vector3.one);
-        GenerateCornerPiece(new Vector3(0, 0 , 1), Quaternion.identity, Vector3.one);
-        GenerateUpperPiece(new Vector3(1, 0 , 0), Quaternion.identity, Vector3.one);
-        GenerateSidePiece(new Vector3(1, 0 , 1), Quaternion.identity, Vector3.one);
-        base.GenerateMesh();
+        GenerateCornerPiece(new Vector3(0, 0, 1), Quaternion.identity, Vector3.one);
+        GenerateUpperPiece(new Vector3(1, 0, 0), Quaternion.identity, Vector3.one);
+        GenerateSidePiece(new Vector3(1, 0, 1), Quaternion.identity, Vector3.one);
+        GenerateMesh();
     }
-    
+
     protected override void GenerateLowerPiece(Vector3 translation, Quaternion rotation, Vector3 scale)
     {
         builder.VertexMatrix =
