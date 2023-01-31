@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
-public class WaterTile : TileMesh
+public class PathTile : TileMesh
 {
-    public WaterTile() : base()
+    public PathTile() : base()
     {
         mesh.name = "Water";
         builder.TextureMatrix = Matrix4x4.Translate(new Vector3(0.0f, 0.0f, 0.0f)) *

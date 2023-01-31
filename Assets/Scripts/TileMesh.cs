@@ -5,7 +5,7 @@ using System.ComponentModel;
 using Grid;
 using UnityEngine;
 
-public abstract class TileMesh : MonoBehaviour
+public abstract class TileMesh
 {
     protected MeshBuilder builder;
     protected Mesh mesh;
@@ -13,7 +13,7 @@ public abstract class TileMesh : MonoBehaviour
     public Mesh Mesh => mesh;
 
     // Start is called before the first frame update
-    protected virtual void Start()
+    protected TileMesh()
     {
         mesh = new Mesh();
         builder = new MeshBuilder();
@@ -33,8 +33,10 @@ public abstract class TileMesh : MonoBehaviour
     }
 
     protected virtual void GenerateSidePiece(Vector3 translation, Quaternion rotation, Vector3 scale) {}
-    protected virtual void GenerateInnerPiece(Vector3 translation, Quaternion rotation, Vector3 scale) {}
+    protected virtual void GenerateUpperPiece(Vector3 translation, Quaternion rotation, Vector3 scale) {}
+    protected virtual void GenerateLowerPiece(Vector3 translation, Quaternion rotation, Vector3 scale) {}
     protected virtual void GenerateCornerPiece(Vector3 translation, Quaternion rotation, Vector3 scale) {}
     protected virtual void GenerateInvertedCornerPiece(Vector3 translation, Quaternion rotation, Vector3 scale) {}
+    protected virtual void GenerateDiagonalPiece(Vector3 translation, Quaternion rotation, Vector3 scale) {}
 
 }

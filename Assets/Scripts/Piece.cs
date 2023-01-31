@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Grid;
 using UnityEngine;
 
@@ -6,39 +7,42 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class Piece : MonoBehaviour {
     private Mesh mesh;
-    private MeshBuilder builder;
     private MeshFilter meshFilter;
     private GridTile tile;
     private WaterTile waterTile;
+    private PathTile pathTile;
+    private DefaultTile defaultTile;
 
     private void Start()
     {
         waterTile = new WaterTile();
+        pathTile = new PathTile();
+        defaultTile = new DefaultTile();
+        waterTile.GenerateMesh();
+        pathTile.GenerateMesh();
+        defaultTile.GenerateMesh();
     }
 
     private void Update()
     {
         tile = GetComponent<GridTile>();
-        builder = new MeshBuilder();
         meshFilter = GetComponent<MeshFilter>();
-        meshFilter.sharedMesh = waterTile.Mesh;
 
-        if (tile.GetProperty(GridTileProperty.Solid) && tile.GetProperty(GridTileProperty.Water))
-        {
-            waterTile.UpdateMesh();
+
+        if (tile.GetProperty(GridTileProperty.Solid) && tile.GetProperty(GridTileProperty.Water)) {
+            //meshFilter.sharedMesh = defaultTile.Mesh;
         } else if (tile.GetProperty(GridTileProperty.Solid)) {
-            waterTile.UpdateMesh();
+            meshFilter.sharedMesh = pathTile.Mesh;
         } else if (tile.GetProperty(GridTileProperty.Water)) {
-            waterTile.UpdateMesh();
+            meshFilter.sharedMesh = waterTile.Mesh;
         } else {
-            waterTile.UpdateMesh();
+            meshFilter.sharedMesh = defaultTile.Mesh;
         }
     }
 
     private void OnDrawGizmos()
     {
         tile = GetComponent<GridTile>();
-        builder = new MeshBuilder();
         meshFilter = GetComponent<MeshFilter>();
         
         if (tile.GetProperty(GridTileProperty.Solid) && tile.GetProperty(GridTileProperty.Water)) {
@@ -51,6 +55,6 @@ public class Piece : MonoBehaviour {
         {
             Gizmos.color = Color.green;
         }
-        Gizmos.DrawCube(transform.position, new Vector3(1, 0.1f, 1));
+        Gizmos.DrawCube(transform.position, new Vector3(0.5f, 0.1f, 0.5f));
     }
 }
