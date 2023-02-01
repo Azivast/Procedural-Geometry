@@ -34,6 +34,29 @@ public class MeshBuilder
         triangles.Add(bottomRight);
     }
     
+    public void AddQuad(Vector2 bottomLeft, Vector2 topLeft, Vector2 topRight, Vector2 bottomRight, Vector2[] uv)
+    {
+        Vector2[] points = new Vector2[4] {bottomLeft, topLeft, topRight, bottomRight};
+
+        for (int i = 0; i < 4; i++)
+        {
+            vertices.Add(VertexMatrix.MultiplyPoint(points[i]));
+            normals.Add(VertexMatrix.MultiplyVector(Vector3.Cross(bottomLeft, topLeft)));
+            this.uv.Add(TextureMatrix.MultiplyPoint(uv[i]));
+        }
+
+
+        // First triangle
+        triangles.Add(vertices.Count-4);
+        triangles.Add(vertices.Count-3);
+        triangles.Add(vertices.Count-2);
+        
+        // Second triangle
+        triangles.Add(vertices.Count-4);
+        triangles.Add(vertices.Count-2);
+        triangles.Add(vertices.Count-1);
+    }
+    
     public void Build(Mesh mesh) 
     {
         mesh.Clear();

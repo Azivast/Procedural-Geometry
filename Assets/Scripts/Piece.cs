@@ -22,9 +22,6 @@ public class Piece : MonoBehaviour {
         waterTile = new WaterTile();
         pathTile = new PathTile();
         defaultTile = new DefaultTile();
-        waterTile.GenerateMesh();
-        pathTile.GenerateMesh();
-        defaultTile.GenerateMesh();
     }
     
     
@@ -32,7 +29,7 @@ public class Piece : MonoBehaviour {
     {
         if (tile.Id != tileChanged) return;
 
-        currentTileType.UpdateMesh(neighbours, tile);
+        currentTileType.UpdateMesh(neighbours);
     }
 
     private void Update()
@@ -67,7 +64,7 @@ public class Piece : MonoBehaviour {
         }
 
         
-        currentTileType.UpdateMesh(neighbours, tile);
+        currentTileType.UpdateMesh(neighbours);
         meshFilter.sharedMesh = currentTileType.Mesh;
     }
 

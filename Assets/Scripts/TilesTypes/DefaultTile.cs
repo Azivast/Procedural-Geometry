@@ -14,7 +14,6 @@ public class DefaultTile : TileMesh
         GenerateUpperPiece(new Vector3(0, 0 , 1), Quaternion.identity, Vector3.one);
         GenerateUpperPiece(new Vector3(1, 0 , 0), Quaternion.identity, Vector3.one);
         GenerateUpperPiece(new Vector3(1, 0, 1), Quaternion.identity, Vector3.one);
-        GenerateMesh();
     }
 
     protected override void GenerateUpperPiece(Vector3 translation, Quaternion rotation, Vector3 scale)
