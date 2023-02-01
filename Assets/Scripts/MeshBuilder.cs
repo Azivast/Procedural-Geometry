@@ -34,27 +34,28 @@ public class MeshBuilder
         triangles.Add(bottomRight);
     }
     
-    public void AddQuad(Vector2 bottomLeft, Vector2 topLeft, Vector2 topRight, Vector2 bottomRight, Vector2[] uv)
+    public void AddQuad(Vector3 bottomLeft, Vector3 topLeft, Vector3 topRight, Vector3 bottomRight, Vector2[] uv = null)
     {
-        Vector2[] points = new Vector2[4] {bottomLeft, topLeft, topRight, bottomRight};
-
+        var points = new Vector3[] {bottomLeft, topLeft, topRight, bottomRight};
+        var index = vertices.Count;
+            
         for (int i = 0; i < 4; i++)
         {
             vertices.Add(VertexMatrix.MultiplyPoint(points[i]));
-            normals.Add(VertexMatrix.MultiplyVector(Vector3.Cross(bottomLeft, topLeft)));
-            this.uv.Add(TextureMatrix.MultiplyPoint(uv[i]));
+            //normals.Add(VertexMatrix.MultiplyVector(Vector3.Cross(bottomLeft, topLeft))); // TODO: Make this work
+            normals.Add(VertexMatrix.MultiplyVector(Vector3.up)); 
+            this.uv.Add(TextureMatrix.MultiplyPoint(uv == null ? new Vector3(points[i].x, points[i].z) : uv[i]));
         }
-
-
+        
         // First triangle
-        triangles.Add(vertices.Count-4);
-        triangles.Add(vertices.Count-3);
-        triangles.Add(vertices.Count-2);
+        triangles.Add(index);
+        triangles.Add(index+2);
+        triangles.Add(index+1);
         
         // Second triangle
-        triangles.Add(vertices.Count-4);
-        triangles.Add(vertices.Count-2);
-        triangles.Add(vertices.Count-1);
+        triangles.Add(index);
+        triangles.Add(index+3);
+        triangles.Add(index+2);
     }
     
     public void Build(Mesh mesh) 

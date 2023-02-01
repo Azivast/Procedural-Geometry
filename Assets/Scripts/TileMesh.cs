@@ -50,11 +50,11 @@ public abstract class TileMesh
                  ||
                  neighbours[6, 1] == thisTileProperty)
         {
-            GenerateInvertedCornerPiece(new Vector3(0, 0, 0), Quaternion.AngleAxis(180, Vector3.up), Vector3.one);
+            GenerateInvertedCornerPiece(new Vector3(0, 0, 0), Quaternion.AngleAxis(90, Vector3.up), Vector3.one);
         }
         else
         {
-            GenerateInvertedCornerPiece(new Vector3(0, 0, 0), Quaternion.AngleAxis(180, Vector3.up), Vector3.one);
+            GenerateInvertedCornerPiece(new Vector3(0, 0, 0), Quaternion.AngleAxis(90, Vector3.up), Vector3.one);
         }
 
         // Upper Left
@@ -84,11 +84,11 @@ public abstract class TileMesh
                  ||
                  neighbours[6, 1] == thisTileProperty)
         {
-            GenerateInvertedCornerPiece(new Vector3(-1, 0, 0), Quaternion.AngleAxis(90, Vector3.up), Vector3.one);
+            GenerateInvertedCornerPiece(new Vector3(-1, 0, 0), Quaternion.AngleAxis(0, Vector3.up), Vector3.one);
         }
         else
         {
-            GenerateInvertedCornerPiece(new Vector3(-1, 0, 0), Quaternion.AngleAxis(90, Vector3.up), Vector3.one);
+            GenerateInvertedCornerPiece(new Vector3(-1, 0, 0), Quaternion.AngleAxis(0, Vector3.up), Vector3.one);
         }
         
         // Lower Left
@@ -118,11 +118,11 @@ public abstract class TileMesh
                  ||
                  neighbours[2, 1] == thisTileProperty)
         {
-            GenerateInvertedCornerPiece(new Vector3(-1, 0, -1), Quaternion.AngleAxis(0, Vector3.up), Vector3.one);
+            GenerateInvertedCornerPiece(new Vector3(-1, 0, -1), Quaternion.AngleAxis(-90, Vector3.up), Vector3.one);
         }
         else
         {
-            GenerateInvertedCornerPiece(new Vector3(-1, 0, -1), Quaternion.AngleAxis(0, Vector3.up), Vector3.one);
+            GenerateInvertedCornerPiece(new Vector3(-1, 0, -1), Quaternion.AngleAxis(-90, Vector3.up), Vector3.one);
         }
         
         // Lower Right
@@ -152,11 +152,11 @@ public abstract class TileMesh
                  ||
                  neighbours[4, 1] == thisTileProperty)
         {
-            GenerateInvertedCornerPiece(new Vector3(0, 0, -1), Quaternion.AngleAxis(-90, Vector3.up), Vector3.one);
+            GenerateInvertedCornerPiece(new Vector3(0, 0, -1), Quaternion.AngleAxis(-180, Vector3.up), Vector3.one);
         }
         else
         {
-            GenerateInvertedCornerPiece(new Vector3(0, 0, -1), Quaternion.AngleAxis(-90, Vector3.up), Vector3.one);
+            GenerateInvertedCornerPiece(new Vector3(0, 0, -1), Quaternion.AngleAxis(-180, Vector3.up), Vector3.one);
         }
         
         builder.Build(mesh);
