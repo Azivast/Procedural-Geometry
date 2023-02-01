@@ -23,6 +23,8 @@ public abstract class TileMesh
 
     public virtual void UpdateMesh(GridTileProperty[,] neighbours)
     {
+        builder.Clear(mesh);
+        
         // Upper Right
         if (neighbours[0,1] == thisTileProperty && 
             neighbours[1,1] == thisTileProperty &&

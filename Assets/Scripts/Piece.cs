@@ -23,14 +23,6 @@ public class Piece : MonoBehaviour {
         pathTile = new PathTile();
         defaultTile = new DefaultTile();
     }
-    
-    
-    private void OnTileUpdate(Vector2 tileChanged, GridTileProperty[,] neighbours)
-    {
-        if (tile.Id != tileChanged) return;
-
-        currentTileType.UpdateMesh(neighbours);
-    }
 
     private void Update()
     {
@@ -54,16 +46,14 @@ public class Piece : MonoBehaviour {
         {
             if (tile.GetNeighbourProperty(i, GridTileProperty.Solid))
                 neighbours[i, 0] = GridTileProperty.Solid;
-            else 
-                neighbours[i, 1] = GridTileProperty.Water;
-            
-            if (tile.GetNeighbourProperty(i, GridTileProperty.Water))
-                neighbours[i, 0] = GridTileProperty.Water;
-            else 
-                neighbours[i, 1] = GridTileProperty.Solid;
-        }
+            else
+                neighbours[i, 0] = default;
 
-        
+            if (tile.GetNeighbourProperty(i, GridTileProperty.Water))
+                neighbours[i, 1] = GridTileProperty.Water;
+            else
+                neighbours[i, 1] = default;
+        }
         currentTileType.UpdateMesh(neighbours);
         meshFilter.sharedMesh = currentTileType.Mesh;
     }

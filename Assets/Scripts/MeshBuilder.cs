@@ -42,8 +42,9 @@ public class MeshBuilder
         for (int i = 0; i < 4; i++)
         {
             vertices.Add(VertexMatrix.MultiplyPoint(points[i]));
-            //normals.Add(VertexMatrix.MultiplyVector(Vector3.Cross(bottomLeft, topLeft))); // TODO: Make this work
-            normals.Add(VertexMatrix.MultiplyVector(Vector3.up)); 
+            var normal = Vector3.Cross( topRight - bottomLeft, topLeft - bottomLeft);
+            normal = normal.normalized;
+            normals.Add(VertexMatrix.MultiplyVector(normal));
             this.uv.Add(TextureMatrix.MultiplyPoint(uv == null ? new Vector3(points[i].x, points[i].z) : uv[i]));
         }
         
@@ -58,6 +59,32 @@ public class MeshBuilder
         triangles.Add(index+2);
     }
     
+    public void AddTriangle(Vector3 bottomLeft, Vector3 topLeft, Vector3 topRight, Vector2[] uv = null)
+    {
+        var points = new Vector3[] {bottomLeft, topLeft, topRight};
+        var index = vertices.Count;
+            
+        for (int i = 0; i < 3; i++)
+        {
+            vertices.Add(VertexMatrix.MultiplyPoint(points[i]));
+            //normals.Add(VertexMatrix.MultiplyVector(Vector3.Cross(bottomLeft, topLeft))); // TODO: Make this work
+            normals.Add(VertexMatrix.MultiplyVector(Vector3.up)); 
+            this.uv.Add(TextureMatrix.MultiplyPoint(uv == null ? new Vector3(points[i].x, points[i].z) : uv[i]));
+        }
+        
+        // First triangle
+        triangles.Add(index);
+        triangles.Add(index+2);
+        triangles.Add(index+1);
+    }
+
+    public void Clear(Mesh mesh)
+    {
+        vertices.Clear();
+        normals.Clear();
+        uv.Clear();
+        triangles.Clear();
+    }
     public void Build(Mesh mesh) 
     {
         mesh.Clear();
