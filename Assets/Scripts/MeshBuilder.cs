@@ -8,16 +8,26 @@ public class MeshBuilder
     private readonly List<Vector3> normals  = new List<Vector3>();
     private readonly List<Vector2> uv       = new List<Vector2>();
     private readonly List<int> triangles    = new List<int>();
+    private Matrix4x4 textureMatrix = Matrix4x4.identity;
     
     public Matrix4x4 VertexMatrix = Matrix4x4.identity;
-    public Matrix4x4 TextureMatrix = Matrix4x4.identity;
-    
+
+    public void SetTextureMatrix(Vector3 translation, float angle)
+    {
+        textureMatrix = Matrix4x4.Translate(translation) *
+                        Matrix4x4.Scale(new Vector3(0.25f, 0.5f, 0.5f)) *
+                        Matrix4x4.Translate(new Vector3(0.5f, 0.5f, 0f)) *
+                        Matrix4x4.Rotate(Quaternion.AngleAxis(angle, Vector3.forward)) * 
+                        Matrix4x4.Translate(new Vector3(-0.5f, -0.5f, 0f));
+    }
+        
+
     public int AddVertex(Vector3 position, Vector3 normal, Vector2 uv) 
     {
         var index = vertices.Count;
         vertices.Add(VertexMatrix.MultiplyPoint(position));
         normals.Add(VertexMatrix.MultiplyVector(normal));
-        this.uv.Add(TextureMatrix.MultiplyPoint(uv));
+        this.uv.Add(textureMatrix.MultiplyPoint(uv));
         return index;
     }
     
@@ -45,7 +55,7 @@ public class MeshBuilder
             var normal = Vector3.Cross( topRight - bottomLeft, topLeft - bottomLeft);
             normal = normal.normalized;
             normals.Add(VertexMatrix.MultiplyVector(normal));
-            this.uv.Add(TextureMatrix.MultiplyPoint(uv == null ? new Vector3(points[i].x, points[i].z) : uv[i]));
+            this.uv.Add(textureMatrix.MultiplyPoint(uv == null ? new Vector3(points[i].x, points[i].z) : uv[i]));
         }
         
         // First triangle
@@ -67,9 +77,10 @@ public class MeshBuilder
         for (int i = 0; i < 3; i++)
         {
             vertices.Add(VertexMatrix.MultiplyPoint(points[i]));
-            //normals.Add(VertexMatrix.MultiplyVector(Vector3.Cross(bottomLeft, topLeft))); // TODO: Make this work
-            normals.Add(VertexMatrix.MultiplyVector(Vector3.up)); 
-            this.uv.Add(TextureMatrix.MultiplyPoint(uv == null ? new Vector3(points[i].x, points[i].z) : uv[i]));
+            var normal = Vector3.Cross( topRight - bottomLeft, topLeft - bottomLeft);
+            normal = normal.normalized;
+            normals.Add(VertexMatrix.MultiplyVector(normal));
+            this.uv.Add(textureMatrix.MultiplyPoint(uv == null ? new Vector3(points[i].x, points[i].z) : uv[i]));
         }
         
         // First triangle

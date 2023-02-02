@@ -259,7 +259,13 @@ MonoBehaviour:
   _cellData:
   - Properties: 2
     JsonData: 
-  - Properties: 2
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 1
+    JsonData: 
+  - Properties: 1
     JsonData: 
   - Properties: 0
     JsonData: 
@@ -267,33 +273,19 @@ MonoBehaviour:
     JsonData: 
   - Properties: 0
     JsonData: 
-  - Properties: 0
-    JsonData: 
-  - Properties: 2
-    JsonData: 
-  - Properties: 2
+  - Properties: 3
     JsonData: 
   - Properties: 0
     JsonData: 
-  - Properties: 0
+  - Properties: 1
     JsonData: 
   - Properties: 0
     JsonData: 
-  - Properties: 0
-    JsonData: 
-  - Properties: 0
-    JsonData: 
-  - Properties: 2
+  - Properties: 3
     JsonData: 
   - Properties: 2
     JsonData: 
   - Properties: 2
-    JsonData: 
-  - Properties: 0
-    JsonData: 
-  - Properties: 2
-    JsonData: 
-  - Properties: 0
     JsonData: 
   - Properties: 2
     JsonData: 
@@ -305,7 +297,19 @@ MonoBehaviour:
     JsonData: 
   - Properties: 2
     JsonData: 
-  - Properties: 0
+  - Properties: 2
+    JsonData: 
+  - Properties: 2
+    JsonData: 
+  - Properties: 2
+    JsonData: 
+  - Properties: 2
+    JsonData: 
+  - Properties: 3
+    JsonData: 
+  - Properties: 3
+    JsonData: 
+  - Properties: 2
     JsonData: 
   - Properties: 0
     JsonData: 
@@ -315,19 +319,15 @@ MonoBehaviour:
     JsonData: 
   - Properties: 0
     JsonData: 
-  - Properties: 0
+  - Properties: 1
     JsonData: 
   - Properties: 0
     JsonData: 
   - Properties: 0
     JsonData: 
-  - Properties: 0
+  - Properties: 1
     JsonData: 
-  - Properties: 0
-    JsonData: 
-  - Properties: 0
-    JsonData: 
-  - Properties: 0
+  - Properties: 2
     JsonData: 
   - Properties: 0
     JsonData: 
@@ -817,7 +817,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.8
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

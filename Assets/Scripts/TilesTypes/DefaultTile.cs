@@ -9,9 +9,7 @@ public class DefaultTile : TileMesh
     public DefaultTile()
     {
         mesh.name = "Default";
-        builder.TextureMatrix = Matrix4x4.Translate(new Vector3(0f, 0.5f, 0f)) *
-                                Matrix4x4.Scale(new Vector3(0.25f, 0.5f, 0.5f));
-        
+        type = new GridTileProperty[2];
     }
     
     public override void UpdateMesh(GridTileProperty[,] neighbours)
@@ -26,6 +24,10 @@ public class DefaultTile : TileMesh
 
     protected override void GenerateUpperPiece(Vector3 translation, Quaternion rotation, Vector3 scale)
     {
+        float angle;
+        rotation.ToAngleAxis(out angle, out _);
+        builder.SetTextureMatrix(new Vector3(0f, 0.5f, 0f), angle);
+        
         builder.VertexMatrix =
             Matrix4x4.Scale(scale) *
             Matrix4x4.Scale(new Vector3(0.5f, 0.5f, 0.5f)) *

@@ -4,12 +4,12 @@ using Grid;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
-public class PathTile : TileMesh
+public class BridgeTile : TileMesh
 {
-    public PathTile() : base()
+    public BridgeTile() : base()
     {
-        mesh.name = "Path";
-        type[0] = GridTileProperty.Solid;
+        mesh.name = "Bridge";
+        type = new []{ GridTileProperty.Solid, GridTileProperty.Water };
     }
     
     protected override void GenerateLowerPiece(Vector3 translation, Quaternion rotation, Vector3 scale)
@@ -75,6 +75,18 @@ public class PathTile : TileMesh
         builder.AddQuad(new Vector3(0f, -0.5f, 1f), new Vector3(0f, -0.5f, 0.7f), new Vector3(0.3f, -0.5f, 0.7f), new Vector3(0.3f, -0.5f, 1f));
         builder.AddQuad(new Vector3(0.3f, -0.5f, 1f), new Vector3(0.3f, -0.5f, 0.7f), new Vector3(0.7f, -0.5f, 0.7f), new Vector3(0.7f, -0.5f, 1f));
         builder.AddQuad(new Vector3(0.7f, -0.5f, 1f), new Vector3(0.7f, -0.5f, 0.7f), new Vector3(1f, -0.5f, 0.7f), new Vector3(1f, -0.5f, 1f));
+        
+        // Bridge
+        builder.SetTextureMatrix(new Vector3(0.5f, 0.5f, 0f), angle);
+        builder.AddQuad(new Vector3(1f, 0.2f, 1f), new Vector3(0f, 0.2f, 1f), new Vector3(0f, 0.2f, 0.3f), new Vector3(1f, 0.2f, 0.3f));
+        builder.SetTextureMatrix(new Vector3(0.5f, 0.5f, 0f), 0);
+        builder.AddQuad(new Vector3(1f, 0.5f, 0.3f), new Vector3(0f, 0.5f, 0.3f), new Vector3(0f, 0.5f, 0f), new Vector3(1f, 0.5f, 0f));
+        builder.SetTextureMatrix(new Vector3(0.5f, 0.5f, 0f), 0);
+        builder.AddQuad(new Vector3(0f, 0f, 0f), new Vector3(1f, 0f, 0f), new Vector3(1f, 0.5f, 0f), new Vector3(0f, 0.5f, 0f),
+            new []{new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 0.5f), new Vector2(0, 0.5f)});
+        builder.SetTextureMatrix(new Vector3(0.5f, 0.5f, 0f), 0);
+        builder.AddQuad(new Vector3(1f, 0f, 0.3f), new Vector3(0f, 0f, 0.3f), new Vector3(0f, 0.5f, 0.3f), new Vector3(1f, 0.5f, 0.3f),
+            new []{ new Vector2(0, 0.5f), new Vector2(1, 0.5f), new Vector2(1, 0), new Vector2(0, 0)});
     }
     
     protected override void GenerateCornerPiece(Vector3 translation, Quaternion rotation, Vector3 scale)
@@ -145,5 +157,19 @@ public class PathTile : TileMesh
         builder.AddQuad(new Vector3(0f, 0f, 1f), new Vector3(0f, 0f, 0.7f), new Vector3(0.3f, 0f, 0.7f), new Vector3(0.3f, 0f, 1f));
         builder.AddQuad(new Vector3(0.3f, 0f, 1f), new Vector3(0.3f, 0f, 0.7f), new Vector3(0.7f, 0f, 0.7f), new Vector3(0.7f, 0f, 1f));
         builder.AddQuad(new Vector3(0.7f, 0f, 1f), new Vector3(0.7f, 0f, 0.7f), new Vector3(1f, 0f, 0.7f), new Vector3(1f, 0f, 1f));
+        
+        // Bridge
+        builder.SetTextureMatrix(new Vector3(0.5f, 0.5f, 0f), 0);
+        builder.AddQuad(new Vector3(1f, 0.2f, 0.7f), new Vector3(0.3f, 0.2f, 0.7f), new Vector3(0.3f, 0.2f, 0f), new Vector3(1f, 0.2f, 0f));
+        builder.AddQuad(new Vector3(1f, 0.5f, 0.7f), new Vector3(0.3f, 0.5f, 0.7f), new Vector3(0.3f, 0f, 0.7f), new Vector3(1f, 0f, 0.7f),
+            new []{new Vector2(1, 0), new Vector2(0, 0), new Vector2(0, 0.5f), new Vector2(1, 0.5f)});
+        builder.AddQuad(new Vector3(1f, 0.5f, 1f), new Vector3(0f, 0.5f, 1f), new Vector3(0f, 0.5f, 0.7f), new Vector3(1f, 0.5f, 0.7f));
+        builder.AddQuad(new Vector3(0f, 0.5f, 1f), new Vector3(1f, 0.5f, 1f), new Vector3(1f, 0f, 1f), new Vector3(0f, 0f, 1f),
+            new []{ new Vector2(0, 0.5f), new Vector2(1, 0.5f), new Vector2(1, 0), new Vector2(0, 0)});
+        builder.AddQuad(new Vector3(0f, 0.5f, 1f), new Vector3(1f, 0.5f, 1f), new Vector3(1f, 0f, 1f), new Vector3(0f, 0f, 1f),
+            new []{ new Vector2(0, 0.5f), new Vector2(1, 0.5f), new Vector2(1, 0), new Vector2(0, 0)});
+        builder.AddQuad(new Vector3(0f, 0f, 1f), new Vector3(0f, 0f, 0f), new Vector3(0f, 0.5f, 0f), new Vector3(0f, 0.5f, 1f),
+            new []{new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 0.5f), new Vector2(0, 0.5f)});
+
     }
 }
