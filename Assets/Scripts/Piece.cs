@@ -43,8 +43,7 @@ public class Piece : MonoBehaviour {
         } else {
             currentTileType = defaultTile;
         }
-
-        // TODO: Get neighbours and pass to tileMesh
+        
         neighbours = new bool[8, 2];
         for (int i = 0; i < 8; i++)
         {

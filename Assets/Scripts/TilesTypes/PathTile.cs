@@ -19,7 +19,6 @@ public class PathTile : TileMesh
         Vector3 pos = Vector3.zero;
         for (int i = 0; i < 4; i++)
         {
-            // TODO: Better implementation than switch statements
             switch (i)
             {
                 case 0:
@@ -55,7 +54,7 @@ public class PathTile : TileMesh
                 CheckSameTypeExact(neighbours, ne) &&
                 CheckSameTypeExact(neighbours, n))
             {
-                GenerateLowerPiece(pos, Quaternion.AngleAxis(-90*i, Vector3.up), Vector3.one,- 90*i);
+                GenerateInnerPiece(pos, Quaternion.AngleAxis(-90*i, Vector3.up), Vector3.one,- 90*i);
             }
             else if (CheckSameTypeExact(neighbours, e) &&
                      CheckSameTypeExact(neighbours, n))
@@ -78,7 +77,7 @@ public class PathTile : TileMesh
         builder.Build(mesh);
     }
 
-    protected override void GenerateLowerPiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f)
+    protected override void GenerateInnerPiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f)
     {
         builder.SetTextureMatrix(new Vector3(0.5f, 0f, 0f), -textureAngle);
 
@@ -92,22 +91,7 @@ public class PathTile : TileMesh
         
         builder.AddQuad(new Vector3(1f, -0.5f, 1f), new Vector3(0f, -0.5f, 1f), new Vector3(0f, -0.5f, 0f), new Vector3(1f, -0.5f, 0f));
     }
-    
-    protected override void GenerateUpperPiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f)
-    {
-        builder.SetTextureMatrix(new Vector3(0f, 0.5f, 0f), textureAngle);
 
-        builder.VertexMatrix =
-            Matrix4x4.Scale(scale) *
-            Matrix4x4.Scale(new Vector3(0.5f, 0.5f, 0.5f)) *
-            Matrix4x4.Translate(translation) *
-            Matrix4x4.Translate(new Vector3(0.5f, 0, 0.5f)) *
-            Matrix4x4.Rotate(rotation) *
-            Matrix4x4.Translate(new Vector3(-0.5f, 0, -0.5f));
-        
-        builder.AddQuad(new Vector3(1f, 0, 0f), new Vector3(0f, 0, 0f), new Vector3(0f, 0, 1f), new Vector3(1f, 0, 1f));
-    }
-    
     protected override void GenerateSidePiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f)
     {
         builder.VertexMatrix =
@@ -119,22 +103,22 @@ public class PathTile : TileMesh
             Matrix4x4.Translate(new Vector3(-0.5f, 0, -0.5f));
         
         builder.SetTextureMatrix(new Vector3(0f, 0.5f, 0f), -textureAngle-180);
-        builder.AddQuad(new Vector3(0f, 0, 0.3f), new Vector3(0f, 0, 0f), new Vector3(0.3f, 0, 0f), new Vector3(0.3f, 0, 0.3f));
-        builder.AddQuad(new Vector3(0.3f, 0, 0.3f), new Vector3(0.3f, 0, 0f), new Vector3(0.7f, 0, 0f), new Vector3(0.7f, 0, 0.3f));
-        builder.AddQuad(new Vector3(0.7f, 0, 0.3f), new Vector3(0.7f, 0, 0f), new Vector3(1f, 0, 0f), new Vector3(1f, 0, 0.3f));
+        builder.AddQuad(new Vector3(0f, 0, 0.3f), new Vector3(0f, 0, 0f), new Vector3(0.3f, 0, 0f), new Vector3(0.3f, 0, 0.35f));
+        builder.AddQuad(new Vector3(0.3f, 0, 0.35f), new Vector3(0.3f, 0, 0f), new Vector3(0.7f, 0, 0f), new Vector3(0.7f, 0, 0.25f));
+        builder.AddQuad(new Vector3(0.7f, 0, 0.25f), new Vector3(0.7f, 0, 0f), new Vector3(1f, 0, 0f), new Vector3(1f, 0, 0.3f));
 
         builder.SetTextureMatrix(new Vector3(0f, 0f, 0f), 180);
-        builder.AddQuad(new Vector3(0f, -0.5f, 0.7f), new Vector3(0f, 0, 0.3f), new Vector3(0.3f, 0, 0.3f), new Vector3(0.3f, -0.5f, 0.7f),
+        builder.AddQuad(new Vector3(0f, -0.5f, 0.7f), new Vector3(0f, 0, 0.3f), new Vector3(0.3f, 0, 0.35f), new Vector3(0.3f, -0.5f, 0.75f),
             new Vector2[4]{new Vector2(0, 0.98f), new Vector2(0, 0.3f), new Vector2(0.3f, 0.3f), new Vector2(0.3f, 0.98f)});
-        builder.AddQuad(new Vector3(0.3f, -0.5f, 0.7f), new Vector3(0.3f, 0, 0.3f), new Vector3(0.7f, 0, 0.3f), new Vector3(0.7f, -0.5f, 0.7f),
+        builder.AddQuad(new Vector3(0.3f, -0.5f, 0.75f), new Vector3(0.3f, 0, 0.35f), new Vector3(0.7f, 0, 0.25f), new Vector3(0.7f, -0.5f, 0.65f),
             new Vector2[4]{new Vector2(0.3f, 0.98f), new Vector2(0.3f, 0.3f), new Vector2(0.7f, 0.3f), new Vector2(0.7f, 0.98f)});
-        builder.AddQuad(new Vector3(0.7f, -0.5f, 0.7f), new Vector3(0.7f, 0, 0.3f), new Vector3(1f, 0, 0.3f), new Vector3(1f, -0.5f, 0.7f),
+        builder.AddQuad(new Vector3(0.7f, -0.5f, 0.65f), new Vector3(0.7f, 0, 0.25f), new Vector3(1f, 0, 0.3f), new Vector3(1f, -0.5f, 0.7f),
             new Vector2[4]{new Vector2(0.7f, 0.98f), new Vector2(0.7f, 0.3f), new Vector2(1f, 0.3f), new Vector2(1f, 0.98f)});
 
         builder.SetTextureMatrix(new Vector3(0.5f, 0f, 0f), 180-textureAngle);
-        builder.AddQuad(new Vector3(0f, -0.5f, 1f), new Vector3(0f, -0.5f, 0.7f), new Vector3(0.3f, -0.5f, 0.7f), new Vector3(0.3f, -0.5f, 1f));
-        builder.AddQuad(new Vector3(0.3f, -0.5f, 1f), new Vector3(0.3f, -0.5f, 0.7f), new Vector3(0.7f, -0.5f, 0.7f), new Vector3(0.7f, -0.5f, 1f));
-        builder.AddQuad(new Vector3(0.7f, -0.5f, 1f), new Vector3(0.7f, -0.5f, 0.7f), new Vector3(1f, -0.5f, 0.7f), new Vector3(1f, -0.5f, 1f));
+        builder.AddQuad(new Vector3(0f, -0.5f, 1f), new Vector3(0f, -0.5f, 0.7f), new Vector3(0.3f, -0.5f, 0.75f), new Vector3(0.3f, -0.5f, 1f));
+        builder.AddQuad(new Vector3(0.3f, -0.5f, 1f), new Vector3(0.3f, -0.5f, 0.75f), new Vector3(0.7f, -0.5f, 0.65f), new Vector3(0.7f, -0.5f, 1f));
+        builder.AddQuad(new Vector3(0.7f, -0.5f, 1f), new Vector3(0.7f, -0.5f, 0.65f), new Vector3(1f, -0.5f, 0.7f), new Vector3(1f, -0.5f, 1f));
     }
     
     protected override void GenerateCornerPiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f)

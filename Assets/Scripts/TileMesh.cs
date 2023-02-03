@@ -50,7 +50,6 @@ public abstract class TileMesh
         Vector3 pos = Vector3.zero;
         for (int i = 0; i < 4; i++)
         {
-            // TODO: Better implementation than switch statements
             switch (i)
             {
                 case 0:
@@ -86,7 +85,7 @@ public abstract class TileMesh
                 CheckSameType(neighbours, ne) &&
                 CheckSameType(neighbours, n))
             {
-                GenerateLowerPiece(pos, Quaternion.AngleAxis(-90*i, Vector3.up), Vector3.one,- 90*i);
+                GenerateInnerPiece(pos, Quaternion.AngleAxis(-90*i, Vector3.up), Vector3.one,- 90*i);
             }
             else if (CheckSameType(neighbours, e) &&
                      CheckSameType(neighbours, n))
@@ -110,8 +109,7 @@ public abstract class TileMesh
     }
 
     protected virtual void GenerateSidePiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f) {}
-    protected virtual void GenerateUpperPiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f) {}
-    protected virtual void GenerateLowerPiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f) {}
+    protected virtual void GenerateInnerPiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f) {}
     protected virtual void GenerateCornerPiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f) {}
     protected virtual void GenerateInvertedCornerPiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f) {}
 }

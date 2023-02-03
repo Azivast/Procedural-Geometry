@@ -16,16 +16,15 @@ public class DefaultTile : TileMesh
 
     public override void UpdateMesh(bool[,] neighbours, Mesh mesh)
     {
-        //TODO: Optimize
         builder.Clear(mesh);
-        GenerateUpperPiece(new Vector3(0f, 0 , 0), Quaternion.identity, Vector3.one);
-        GenerateUpperPiece(new Vector3(1f, 0 , 0), Quaternion.identity, Vector3.one);
-        GenerateUpperPiece(new Vector3(0f, 0 , 1), Quaternion.identity, Vector3.one);
-        GenerateUpperPiece(new Vector3(1f, 0 , 1), Quaternion.identity, Vector3.one);
+        GenerateInnerPiece(new Vector3(0f, 0 , 0), Quaternion.identity, Vector3.one);
+        GenerateInnerPiece(new Vector3(1f, 0 , 0), Quaternion.identity, Vector3.one);
+        GenerateInnerPiece(new Vector3(0f, 0 , 1), Quaternion.identity, Vector3.one);
+        GenerateInnerPiece(new Vector3(1f, 0 , 1), Quaternion.identity, Vector3.one);
         builder.Build(mesh);
     }
 
-    protected override void GenerateUpperPiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f)
+    protected override void GenerateInnerPiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f)
     {
         float angle;
         rotation.ToAngleAxis(out angle, out _);
