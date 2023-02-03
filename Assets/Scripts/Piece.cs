@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using Grid;
 using UnityEngine;
-using Events;
 
 [RequireComponent(typeof(GridTile))]
 [ExecuteInEditMode]

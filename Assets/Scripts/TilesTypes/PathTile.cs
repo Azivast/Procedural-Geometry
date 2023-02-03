@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Grid;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 public class PathTile : TileMesh

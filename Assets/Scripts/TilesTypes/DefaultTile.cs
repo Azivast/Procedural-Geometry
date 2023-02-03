@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Grid;
 using JetBrains.Annotations;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 public class DefaultTile : TileMesh
