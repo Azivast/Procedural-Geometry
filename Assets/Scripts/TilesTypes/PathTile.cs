@@ -10,6 +10,73 @@ public class PathTile : TileMesh
     {
         get { return new bool[] {true, false}; }
     }
+    
+        public override void UpdateMesh(bool[,] neighbours, Mesh mesh)
+    {
+        builder.Clear(mesh);
+
+        int e = 0, ne = 1, n = 2, w = 4, s = 6;
+        Vector3 pos = Vector3.zero;
+        for (int i = 0; i < 4; i++)
+        {
+            // TODO: Better implementation than switch statements
+            switch (i)
+            {
+                case 0:
+                    // already correct
+                    break;
+                case 1:
+                    e = 2; ne = 3; n = 4; w = 6; s = 0;
+                    break;
+                case 2:
+                    e = 4; ne = 5; n = 6; w = 0; s = 2;
+                    break;
+                case 3:
+                    e = 6; ne = 7; n = 0; w = 2; s = 4;
+                    break;
+            }
+            switch (i)
+            {
+                case 0:
+                    // already correct
+                    break;
+                case 1:
+                    pos = new Vector3(-1, 0, 0);
+                    break;
+                case 2:
+                    pos = new Vector3(-1, 0, -1);
+                    break;
+                case 3:
+                    pos = new Vector3(0, 0, -1);
+                    break;
+            }
+            
+            if (CheckSameTypeExact(neighbours, e) &&
+                CheckSameTypeExact(neighbours, ne) &&
+                CheckSameTypeExact(neighbours, n))
+            {
+                GenerateLowerPiece(pos, Quaternion.AngleAxis(-90*i, Vector3.up), Vector3.one,- 90*i);
+            }
+            else if (CheckSameTypeExact(neighbours, e) &&
+                     CheckSameTypeExact(neighbours, n))
+            {
+                GenerateCornerPiece(pos, Quaternion.AngleAxis(-90 + -90*i, Vector3.up), Vector3.one, - 90*i);
+            }
+            else if (CheckSameTypeExact(neighbours, e))
+            {
+                GenerateSidePiece(pos, Quaternion.AngleAxis(180 + -90*i, Vector3.up), Vector3.one,  - 90*i);
+            }
+            else if (CheckSameTypeExact(neighbours, n))
+            {
+                GenerateSidePiece(pos, Quaternion.AngleAxis(270 + -90*i, Vector3.up), Vector3.one, 90-90*i);
+            }
+            else
+            {
+                GenerateInvertedCornerPiece(pos, Quaternion.AngleAxis(90 + -90*i, Vector3.up), Vector3.one, 90-90*i);
+            }
+        }
+        builder.Build(mesh);
+    }
 
     protected override void GenerateLowerPiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f)
     {
