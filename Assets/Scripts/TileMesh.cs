@@ -9,31 +9,44 @@ using UnityEngine.WSA;
 public abstract class TileMesh
 {
     protected MeshBuilder builder;
-    protected Mesh mesh;
-    private GridTile tile;
-    protected GridTileProperty[] type = {default, default};
 
-    public Mesh Mesh => mesh;
+    protected virtual bool[] type
+    {
+        get { return new bool[] {false, false}; }
+    }
 
     // Start is called before the first frame update
     protected TileMesh()
     {
-        mesh = new Mesh();
         builder = new MeshBuilder();
     }
 
-    private bool CheckSameType(GridTileProperty[,] neighbours, int selectedNeighbour)
+    protected bool CheckSameType(bool[,] neighbours, int selectedNeighbour)
     {
-        if (type is null) return false; // TODO: This doesn't work
+        if (type[1])
+            return neighbours[selectedNeighbour, 1] == type[1];
+        else if (type[0])
+            return neighbours[selectedNeighbour, 0] == type[0];
+        else return false;
+    }
+
+    protected bool CheckSameTypeExact(bool[,] neighbours, int selectedNeighbour) // Will only match if both bools match
+    {
         return neighbours[selectedNeighbour, 0] == type[0] &&
                neighbours[selectedNeighbour, 1] == type[1];
     }
-
-    public virtual void UpdateMesh(GridTileProperty[,] neighbours)
+    
+    protected bool CheckSameTypeSpecific(bool[,] neighbours, int selectedNeighbour, bool[] type)
+    {
+        return neighbours[selectedNeighbour, 0] == type[0] &&
+               neighbours[selectedNeighbour, 1] == type[1];
+    }
+    
+    public virtual void UpdateMesh(bool[,] neighbours, Mesh mesh)
     {
         builder.Clear(mesh);
 
-        int E = 0, NE = 1, N = 2, NW = 3, W = 4, SW = 5, S = 6, SE = 7;
+        int e = 0, ne = 1, n = 2, w = 4, s = 6;
         Vector3 pos = Vector3.zero;
         for (int i = 0; i < 4; i++)
         {
@@ -44,13 +57,13 @@ public abstract class TileMesh
                     // already correct
                     break;
                 case 1:
-                    E = 2; NE = 3; N = 4; NW = 5; W = 6; SW = 7; S = 0; SE = 1;
+                    e = 2; ne = 3; n = 4; w = 6; s = 0;
                     break;
                 case 2:
-                    E = 4; NE = 5; N = 6; NW = 7; W = 0; SW = 1; S = 2; SE = 3;
+                    e = 4; ne = 5; n = 6; w = 0; s = 2;
                     break;
                 case 3:
-                    E = 6; NE = 7; N = 0; NW = 1; W = 2; SW = 3; S = 4; SE = 5;
+                    e = 6; ne = 7; n = 0; w = 2; s = 4;
                     break;
             }
             switch (i)
@@ -69,47 +82,36 @@ public abstract class TileMesh
                     break;
             }
             
-            if (CheckSameType(neighbours, E) &&
-                CheckSameType(neighbours, NE) &&
-                CheckSameType(neighbours, N))
+            if (CheckSameType(neighbours, e) &&
+                CheckSameType(neighbours, ne) &&
+                CheckSameType(neighbours, n))
             {
-                GenerateLowerPiece(pos, Quaternion.AngleAxis(-90*i, Vector3.up), Vector3.one);
+                GenerateLowerPiece(pos, Quaternion.AngleAxis(-90*i, Vector3.up), Vector3.one,- 90*i);
             }
-            else if (CheckSameType(neighbours, E) &&
-                     CheckSameType(neighbours, N))
+            else if (CheckSameType(neighbours, e) &&
+                     CheckSameType(neighbours, n))
             {
-                GenerateCornerPiece(pos, Quaternion.AngleAxis(-90 + -90*i, Vector3.up), Vector3.one);
+                GenerateCornerPiece(pos, Quaternion.AngleAxis(-90 + -90*i, Vector3.up), Vector3.one, - 90*i);
             }
-            else if (CheckSameType(neighbours, E))
+            else if (CheckSameType(neighbours, e))
             {
-                GenerateSidePiece(pos, Quaternion.AngleAxis(180 + -90*i, Vector3.up), Vector3.one);
+                GenerateSidePiece(pos, Quaternion.AngleAxis(180 + -90*i, Vector3.up), Vector3.one,  - 90*i);
             }
-            else if (CheckSameType(neighbours, N))
+            else if (CheckSameType(neighbours, n))
             {
-                GenerateSidePiece(pos, Quaternion.AngleAxis(270 + -90*i, Vector3.up), Vector3.one);
-            }
-            else if ((CheckSameType(neighbours, S) &&
-                      CheckSameType(neighbours, W))
-                     ||
-                     CheckSameType(neighbours, W)
-                     ||
-                     CheckSameType(neighbours, S))
-            {
-                GenerateInvertedCornerPiece(pos, Quaternion.AngleAxis(90 + -90*i, Vector3.up), Vector3.one);
+                GenerateSidePiece(pos, Quaternion.AngleAxis(270 + -90*i, Vector3.up), Vector3.one, 90-90*i);
             }
             else
             {
-                GenerateInvertedCornerPiece(pos, Quaternion.AngleAxis(90 + -90*i, Vector3.up), Vector3.one);
+                GenerateInvertedCornerPiece(pos, Quaternion.AngleAxis(90 + -90*i, Vector3.up), Vector3.one, 90-90*i);
             }
         }
         builder.Build(mesh);
     }
 
-    protected virtual void GenerateSidePiece(Vector3 translation, Quaternion rotation, Vector3 scale) {}
-    protected virtual void GenerateUpperPiece(Vector3 translation, Quaternion rotation, Vector3 scale) {}
-    protected virtual void GenerateLowerPiece(Vector3 translation, Quaternion rotation, Vector3 scale) {}
-    protected virtual void GenerateCornerPiece(Vector3 translation, Quaternion rotation, Vector3 scale) {}
-    protected virtual void GenerateInvertedCornerPiece(Vector3 translation, Quaternion rotation, Vector3 scale) {}
-    protected virtual void GenerateDiagonalPiece(Vector3 translation, Quaternion rotation, Vector3 scale) {}
-
+    protected virtual void GenerateSidePiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f) {}
+    protected virtual void GenerateUpperPiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f) {}
+    protected virtual void GenerateLowerPiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f) {}
+    protected virtual void GenerateCornerPiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f) {}
+    protected virtual void GenerateInvertedCornerPiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f) {}
 }

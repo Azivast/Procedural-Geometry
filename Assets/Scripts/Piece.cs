@@ -10,7 +10,7 @@ public class Piece : MonoBehaviour {
     private Mesh mesh;
     private MeshFilter meshFilter;
     private GridTile tile;
-    private GridTileProperty[,] neighbours = new GridTileProperty[8, 2];
+    private bool[,] neighbours = new bool[8, 2];
     
     private TileMesh currentTileType;
     private WaterTile waterTile;
@@ -20,6 +20,8 @@ public class Piece : MonoBehaviour {
 
     private void Start()
     {
+        mesh = new Mesh();
+        mesh.name = "Tile";
         waterTile = new WaterTile();
         pathTile = new PathTile();
         defaultTile = new DefaultTile();
@@ -43,18 +45,14 @@ public class Piece : MonoBehaviour {
         }
 
         // TODO: Get neighbours and pass to tileMesh
-        neighbours = new GridTileProperty[8, 2];
+        neighbours = new bool[8, 2];
         for (int i = 0; i < 8; i++)
         {
-            if (tile.GetNeighbourProperty(i, GridTileProperty.Solid))
-                neighbours[i, 0] = GridTileProperty.Solid;
-            else neighbours[i, 0] = default;
-            if (tile.GetNeighbourProperty(i, GridTileProperty.Water))
-                neighbours[i, 1] = GridTileProperty.Water;
-            else neighbours[i, 1] = default;
+            neighbours[i, 0] = tile.GetNeighbourProperty(i, GridTileProperty.Solid);
+            neighbours[i, 1] = tile.GetNeighbourProperty(i, GridTileProperty.Water);
         }
-        currentTileType.UpdateMesh(neighbours);
-        meshFilter.sharedMesh = currentTileType.Mesh;
+        currentTileType.UpdateMesh(neighbours, mesh);
+        meshFilter.sharedMesh = mesh;
     }
 
     private void OnDrawGizmos()

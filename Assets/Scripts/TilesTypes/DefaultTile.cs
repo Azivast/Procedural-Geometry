@@ -1,19 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using Grid;
+using JetBrains.Annotations;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 public class DefaultTile : TileMesh
 {
-    public DefaultTile()
+    [CanBeNull]
+    protected override  bool[] type
     {
-        mesh.name = "Default";
-        type = new GridTileProperty[2];
+        get { return new bool[] {false, false}; }
     }
-    
-    public override void UpdateMesh(GridTileProperty[,] neighbours)
+
+
+    public override void UpdateMesh(bool[,] neighbours, Mesh mesh)
     {
+        //TODO: Optimize
         builder.Clear(mesh);
         GenerateUpperPiece(new Vector3(0f, 0 , 0), Quaternion.identity, Vector3.one);
         GenerateUpperPiece(new Vector3(1f, 0 , 0), Quaternion.identity, Vector3.one);
@@ -22,7 +25,7 @@ public class DefaultTile : TileMesh
         builder.Build(mesh);
     }
 
-    protected override void GenerateUpperPiece(Vector3 translation, Quaternion rotation, Vector3 scale)
+    protected override void GenerateUpperPiece(Vector3 translation, Quaternion rotation, Vector3 scale, float textureAngle = 0f)
     {
         float angle;
         rotation.ToAngleAxis(out angle, out _);
