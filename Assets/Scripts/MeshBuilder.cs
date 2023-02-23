@@ -103,6 +103,7 @@ public class MeshBuilder
         mesh.SetNormals(normals);
         mesh.SetUVs(0, uv);
         mesh.SetIndices(triangles, MeshTopology.Triangles, 0);
+        mesh.RecalculateTangents();
         mesh.MarkModified();
     }
 }
